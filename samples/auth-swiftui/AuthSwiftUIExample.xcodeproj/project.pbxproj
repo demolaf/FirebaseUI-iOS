@@ -1,0 +1,591 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7EC27B862E6DD248004F8DEA /* FirebaseAuthSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 7EC27B852E6DD248004F8DEA /* FirebaseAuthSwiftUI */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7EC27B162E6DBEA8004F8DEA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7EC27B002E6DBEA6004F8DEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7EC27B072E6DBEA6004F8DEA;
+			remoteInfo = AuthSwiftUIExample;
+		};
+		7EC27B202E6DBEA8004F8DEA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7EC27B002E6DBEA6004F8DEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7EC27B072E6DBEA6004F8DEA;
+			remoteInfo = AuthSwiftUIExample;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		7EC27B082E6DBEA6004F8DEA /* AuthSwiftUIExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AuthSwiftUIExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7EC27B152E6DBEA8004F8DEA /* AuthSwiftUIExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AuthSwiftUIExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7EC27B1F2E6DBEA8004F8DEA /* AuthSwiftUIExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AuthSwiftUIExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		7EC27B0A2E6DBEA6004F8DEA /* AuthSwiftUIExample */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = AuthSwiftUIExample;
+			sourceTree = "<group>";
+		};
+		7EC27B182E6DBEA8004F8DEA /* AuthSwiftUIExampleTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = AuthSwiftUIExampleTests;
+			sourceTree = "<group>";
+		};
+		7EC27B222E6DBEA8004F8DEA /* AuthSwiftUIExampleUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = AuthSwiftUIExampleUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7EC27B052E6DBEA6004F8DEA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7EC27B862E6DD248004F8DEA /* FirebaseAuthSwiftUI in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7EC27B122E6DBEA8004F8DEA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7EC27B1C2E6DBEA8004F8DEA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7EC27AFF2E6DBEA6004F8DEA = {
+			isa = PBXGroup;
+			children = (
+				7EC27B0A2E6DBEA6004F8DEA /* AuthSwiftUIExample */,
+				7EC27B182E6DBEA8004F8DEA /* AuthSwiftUIExampleTests */,
+				7EC27B222E6DBEA8004F8DEA /* AuthSwiftUIExampleUITests */,
+				7EC27B092E6DBEA6004F8DEA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7EC27B092E6DBEA6004F8DEA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7EC27B082E6DBEA6004F8DEA /* AuthSwiftUIExample.app */,
+				7EC27B152E6DBEA8004F8DEA /* AuthSwiftUIExampleTests.xctest */,
+				7EC27B1F2E6DBEA8004F8DEA /* AuthSwiftUIExampleUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7EC27B072E6DBEA6004F8DEA /* AuthSwiftUIExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7EC27B292E6DBEA8004F8DEA /* Build configuration list for PBXNativeTarget "AuthSwiftUIExample" */;
+			buildPhases = (
+				7EC27B042E6DBEA6004F8DEA /* Sources */,
+				7EC27B052E6DBEA6004F8DEA /* Frameworks */,
+				7EC27B062E6DBEA6004F8DEA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				7EC27B0A2E6DBEA6004F8DEA /* AuthSwiftUIExample */,
+			);
+			name = AuthSwiftUIExample;
+			packageProductDependencies = (
+				7EC27B3F2E6DBF52004F8DEA /* FirebaseAuthSwiftUI */,
+				7EC27B852E6DD248004F8DEA /* FirebaseAuthSwiftUI */,
+			);
+			productName = AuthSwiftUIExample;
+			productReference = 7EC27B082E6DBEA6004F8DEA /* AuthSwiftUIExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+		7EC27B142E6DBEA8004F8DEA /* AuthSwiftUIExampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7EC27B2C2E6DBEA8004F8DEA /* Build configuration list for PBXNativeTarget "AuthSwiftUIExampleTests" */;
+			buildPhases = (
+				7EC27B112E6DBEA8004F8DEA /* Sources */,
+				7EC27B122E6DBEA8004F8DEA /* Frameworks */,
+				7EC27B132E6DBEA8004F8DEA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7EC27B172E6DBEA8004F8DEA /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				7EC27B182E6DBEA8004F8DEA /* AuthSwiftUIExampleTests */,
+			);
+			name = AuthSwiftUIExampleTests;
+			packageProductDependencies = (
+			);
+			productName = AuthSwiftUIExampleTests;
+			productReference = 7EC27B152E6DBEA8004F8DEA /* AuthSwiftUIExampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		7EC27B1E2E6DBEA8004F8DEA /* AuthSwiftUIExampleUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7EC27B2F2E6DBEA8004F8DEA /* Build configuration list for PBXNativeTarget "AuthSwiftUIExampleUITests" */;
+			buildPhases = (
+				7EC27B1B2E6DBEA8004F8DEA /* Sources */,
+				7EC27B1C2E6DBEA8004F8DEA /* Frameworks */,
+				7EC27B1D2E6DBEA8004F8DEA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7EC27B212E6DBEA8004F8DEA /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				7EC27B222E6DBEA8004F8DEA /* AuthSwiftUIExampleUITests */,
+			);
+			name = AuthSwiftUIExampleUITests;
+			packageProductDependencies = (
+			);
+			productName = AuthSwiftUIExampleUITests;
+			productReference = 7EC27B1F2E6DBEA8004F8DEA /* AuthSwiftUIExampleUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7EC27B002E6DBEA6004F8DEA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1640;
+				LastUpgradeCheck = 1640;
+				TargetAttributes = {
+					7EC27B072E6DBEA6004F8DEA = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					7EC27B142E6DBEA8004F8DEA = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 7EC27B072E6DBEA6004F8DEA;
+					};
+					7EC27B1E2E6DBEA8004F8DEA = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 7EC27B072E6DBEA6004F8DEA;
+					};
+				};
+			};
+			buildConfigurationList = 7EC27B032E6DBEA6004F8DEA /* Build configuration list for PBXProject "AuthSwiftUIExample" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7EC27AFF2E6DBEA6004F8DEA;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				7EC27B842E6DD248004F8DEA /* XCLocalSwiftPackageReference "../../FirebaseAuthSwiftUI" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 7EC27B092E6DBEA6004F8DEA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7EC27B072E6DBEA6004F8DEA /* AuthSwiftUIExample */,
+				7EC27B142E6DBEA8004F8DEA /* AuthSwiftUIExampleTests */,
+				7EC27B1E2E6DBEA8004F8DEA /* AuthSwiftUIExampleUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7EC27B062E6DBEA6004F8DEA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7EC27B132E6DBEA8004F8DEA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7EC27B1D2E6DBEA8004F8DEA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7EC27B042E6DBEA6004F8DEA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7EC27B112E6DBEA8004F8DEA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7EC27B1B2E6DBEA8004F8DEA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7EC27B172E6DBEA8004F8DEA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7EC27B072E6DBEA6004F8DEA /* AuthSwiftUIExample */;
+			targetProxy = 7EC27B162E6DBEA8004F8DEA /* PBXContainerItemProxy */;
+		};
+		7EC27B212E6DBEA8004F8DEA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7EC27B072E6DBEA6004F8DEA /* AuthSwiftUIExample */;
+			targetProxy = 7EC27B202E6DBEA8004F8DEA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		7EC27B272E6DBEA8004F8DEA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 3G33A99C47;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		7EC27B282E6DBEA8004F8DEA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 3G33A99C47;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7EC27B2A2E6DBEA8004F8DEA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3G33A99C47;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.AuthSwiftUIExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7EC27B2B2E6DBEA8004F8DEA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3G33A99C47;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.AuthSwiftUIExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		7EC27B2D2E6DBEA8004F8DEA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3G33A99C47;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.AuthSwiftUIExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AuthSwiftUIExample.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AuthSwiftUIExample";
+			};
+			name = Debug;
+		};
+		7EC27B2E2E6DBEA8004F8DEA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3G33A99C47;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.AuthSwiftUIExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AuthSwiftUIExample.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AuthSwiftUIExample";
+			};
+			name = Release;
+		};
+		7EC27B302E6DBEA8004F8DEA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3G33A99C47;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.AuthSwiftUIExampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = AuthSwiftUIExample;
+			};
+			name = Debug;
+		};
+		7EC27B312E6DBEA8004F8DEA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3G33A99C47;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.AuthSwiftUIExampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = AuthSwiftUIExample;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7EC27B032E6DBEA6004F8DEA /* Build configuration list for PBXProject "AuthSwiftUIExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7EC27B272E6DBEA8004F8DEA /* Debug */,
+				7EC27B282E6DBEA8004F8DEA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7EC27B292E6DBEA8004F8DEA /* Build configuration list for PBXNativeTarget "AuthSwiftUIExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7EC27B2A2E6DBEA8004F8DEA /* Debug */,
+				7EC27B2B2E6DBEA8004F8DEA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7EC27B2C2E6DBEA8004F8DEA /* Build configuration list for PBXNativeTarget "AuthSwiftUIExampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7EC27B2D2E6DBEA8004F8DEA /* Debug */,
+				7EC27B2E2E6DBEA8004F8DEA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7EC27B2F2E6DBEA8004F8DEA /* Build configuration list for PBXNativeTarget "AuthSwiftUIExampleUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7EC27B302E6DBEA8004F8DEA /* Debug */,
+				7EC27B312E6DBEA8004F8DEA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		7EC27B842E6DD248004F8DEA /* XCLocalSwiftPackageReference "../../FirebaseAuthSwiftUI" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../FirebaseAuthSwiftUI;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7EC27B3F2E6DBF52004F8DEA /* FirebaseAuthSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FirebaseAuthSwiftUI;
+		};
+		7EC27B852E6DD248004F8DEA /* FirebaseAuthSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FirebaseAuthSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 7EC27B002E6DBEA6004F8DEA /* Project object */;
+}
