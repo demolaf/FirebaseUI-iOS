@@ -67,14 +67,6 @@ struct EmailResetPasswordView: View {
                     }
                 }
             }
-
-            Button {
-                state.onGoToSignIn()
-            } label: {
-                Text("Back to Sign In")
-                    .frame(maxWidth: .infinity)
-            }
-            .disabled(state.isLoading)
         }
         .navigationTitle("Reset Password")
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
@@ -83,9 +75,22 @@ struct EmailResetPasswordView: View {
 
 #Preview {
     NavigationStack {
-        EmailAuthView { state in
-            EmailResetPasswordView(state: state)
-        }
+        EmailResetPasswordView(state: EmailAuthContentState(
+            isLoading: false,
+            error: nil,
+            email: .constant(""),
+            password: .constant(""),
+            confirmPassword: .constant(""),
+            displayName: .constant(""),
+            resetLinkSent: false,
+            onSignInClick: {},
+            onSignUpClick: {},
+            onSendResetLinkClick: {},
+            onGoToSignUp: {},
+            onGoToSignIn: {},
+            onGoToResetPassword: {},
+            navigator: Navigator()
+        ))
         .safeAreaPadding()
     }
 }

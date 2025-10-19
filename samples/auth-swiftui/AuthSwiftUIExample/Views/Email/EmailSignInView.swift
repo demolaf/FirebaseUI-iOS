@@ -75,9 +75,22 @@ struct EmailSignInView: View {
 
 #Preview {
     NavigationStack {
-        EmailAuthView { state in
-            EmailSignInView(state: state)
-        }
+        EmailSignInView(state: EmailAuthContentState(
+            isLoading: false,
+            error: nil,
+            email: .constant(""),
+            password: .constant(""),
+            confirmPassword: .constant(""),
+            displayName: .constant(""),
+            resetLinkSent: false,
+            onSignInClick: {},
+            onSignUpClick: {},
+            onSendResetLinkClick: {},
+            onGoToSignUp: {},
+            onGoToSignIn: {},
+            onGoToResetPassword: {},
+            navigator: Navigator()
+        ))
         .safeAreaPadding()
     }
 }

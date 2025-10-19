@@ -63,9 +63,22 @@ struct EnterPhoneNumberView: View {
 
 #Preview {
     NavigationStack {
-        PhoneAuthView { state in
-            EnterPhoneNumberView(state: state)
-        }
+        EnterPhoneNumberView(state: PhoneAuthContentState(
+            isLoading: false,
+            error: nil,
+            phoneNumber: .constant(""),
+            selectedCountry: .default,
+            onCountrySelected: { _ in },
+            onSendCodeClick: {},
+            verificationCode: .constant(""),
+            onVerificationCodeChange: { _ in },
+            onVerifyCodeClick: {},
+            fullPhoneNumber: "+1 ",
+            onResendCodeClick: {},
+            resendTimer: 0,
+            onChangeNumberClick: {},
+            navigator: Navigator()
+        ))
         .safeAreaPadding()
     }
 }

@@ -68,14 +68,6 @@ struct EmailSignUpView: View {
                         .font(.caption)
                 }
             }
-
-            Button {
-                state.onGoToSignIn()
-            } label: {
-                Text("Already have an account? Sign In")
-                    .frame(maxWidth: .infinity)
-            }
-            .disabled(state.isLoading)
         }
         .navigationTitle("Create an account")
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
@@ -84,9 +76,22 @@ struct EmailSignUpView: View {
 
 #Preview {
     NavigationStack {
-        EmailAuthView { state in
-            EmailSignUpView(state: state)
-        }
+        EmailSignUpView(state: EmailAuthContentState(
+            isLoading: false,
+            error: nil,
+            email: .constant(""),
+            password: .constant(""),
+            confirmPassword: .constant(""),
+            displayName: .constant(""),
+            resetLinkSent: false,
+            onSignInClick: {},
+            onSignUpClick: {},
+            onSendResetLinkClick: {},
+            onGoToSignUp: {},
+            onGoToSignIn: {},
+            onGoToResetPassword: {},
+            navigator: Navigator()
+        ))
         .safeAreaPadding()
     }
 }

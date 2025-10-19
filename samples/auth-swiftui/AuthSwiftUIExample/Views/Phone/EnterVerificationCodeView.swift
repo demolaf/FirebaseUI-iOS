@@ -84,9 +84,22 @@ struct EnterVerificationCodeView: View {
 
 #Preview {
     NavigationStack {
-        PhoneAuthView { state in
-            EnterVerificationCodeView(state: state)
-        }
+        EnterVerificationCodeView(state: PhoneAuthContentState(
+            isLoading: false,
+            error: nil,
+            phoneNumber: .constant(""),
+            selectedCountry: .default,
+            onCountrySelected: { _ in },
+            onSendCodeClick: {},
+            verificationCode: .constant(""),
+            onVerificationCodeChange: { _ in },
+            onVerifyCodeClick: {},
+            fullPhoneNumber: "+1 5551234567",
+            onResendCodeClick: {},
+            resendTimer: 0,
+            onChangeNumberClick: {},
+            navigator: Navigator()
+        ))
         .safeAreaPadding()
     }
 }
