@@ -29,7 +29,6 @@ struct EnterPhoneNumberView: View {
             ) {
                 CountrySelector(
                     selectedCountry: state.selectedCountry,
-                    onCountrySelected: state.onCountrySelected,
                     enabled: !state.isLoading
                 )
             }

@@ -37,15 +37,13 @@ struct PhoneAuthContentState {
     var isLoading: Bool
     var error: String?
     var phoneNumber: Binding<String>
-    var selectedCountry: CountryData
-    var onCountrySelected: (CountryData) -> Void
-    var onSendCodeClick: () -> Void
+    var selectedCountry: Binding<CountryData>
     var verificationCode: Binding<String>
-    var onVerificationCodeChange: (String) -> Void
-    var onVerifyCodeClick: () -> Void
     var fullPhoneNumber: String
-    var onResendCodeClick: () -> Void
     var resendTimer: Int
+    var onSendCodeClick: () -> Void
+    var onVerifyCodeClick: () -> Void
+    var onResendCodeClick: () -> Void
     var onChangeNumberClick: () -> Void
 }
 
@@ -70,19 +68,13 @@ struct PhoneAuthView<Content: View>: View {
             isLoading: isLoading,
             error: error,
             phoneNumber: $phoneNumber,
-            selectedCountry: selectedCountry,
-            onCountrySelected: { country in
-                selectedCountry = country
-            },
-            onSendCodeClick: handleSendCode,
+            selectedCountry: $selectedCountry,
             verificationCode: $verificationCode,
-            onVerificationCodeChange: { code in
-                verificationCode = code
-            },
-            onVerifyCodeClick: handleVerifyCode,
             fullPhoneNumber: "\(selectedCountry.dialCode) \(phoneNumber)",
-            onResendCodeClick: handleResendCode,
             resendTimer: resendTimer,
+            onSendCodeClick: handleSendCode,
+            onVerifyCodeClick: handleVerifyCode,
+            onResendCodeClick: handleResendCode,
             onChangeNumberClick: {
                 step = .enterPhoneNumber
                 verificationCode = ""
@@ -92,7 +84,7 @@ struct PhoneAuthView<Content: View>: View {
 
     private func handleSendCode() {
         // TODO: Implement send code logic
-        step = .enterVerificationCode
+        withAnimation { step = .enterVerificationCode }
     }
 
     private func handleVerifyCode() {

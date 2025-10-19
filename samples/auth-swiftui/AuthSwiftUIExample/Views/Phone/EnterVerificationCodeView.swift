@@ -35,12 +35,6 @@ struct EnterVerificationCodeView: View {
                     code: state.verificationCode,
                     isError: state.error != nil,
                     errorMessage: state.error,
-                    onCodeComplete: { _ in
-                        state.onVerifyCodeClick()
-                    },
-                    onCodeChange: { newCode in
-                        state.onVerificationCodeChange(newCode)
-                    }
                 )
 
                 Button {
