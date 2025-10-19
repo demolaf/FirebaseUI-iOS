@@ -44,6 +44,7 @@ struct VerificationCodeInputField: View {
                         digit: $digitFields[index],
                         isError: isError,
                         isFocused: focusedIndex == index,
+                        maxDigits: codeLength - index,
                         onDigitChanged: { newDigit in
                             handleDigitChanged(at: index, newDigit: newDigit)
                         },
@@ -53,7 +54,9 @@ struct VerificationCodeInputField: View {
                         onFocusChanged: { isFocused in
                             DispatchQueue.main.async {
                                 if isFocused {
-                                    focusedIndex = index
+                                    if focusedIndex != index {
+                                        focusedIndex = index
+                                    }
                                 } else if focusedIndex == index {
                                     focusedIndex = nil
                                 }
@@ -88,39 +91,61 @@ struct VerificationCodeInputField: View {
     }
     
     private func handleDigitChanged(at index: Int, newDigit: String) {
-        // Update the digit field only if it actually changed to avoid redundant state writes
-        if digitFields[index] != newDigit {
-            digitFields[index] = newDigit
+        let sanitized = newDigit.filter { $0.isNumber }
+
+        guard !sanitized.isEmpty else {
+            processSingleDigitInput(at: index, digit: "")
+            return
         }
 
-        // Update the main code string
+        let firstDigit = String(sanitized.prefix(1))
+        processSingleDigitInput(at: index, digit: firstDigit)
+
+        let remainder = String(sanitized.dropFirst())
+        let availableSlots = max(codeLength - (index + 1), 0)
+        if availableSlots > 0 {
+            let trimmedRemainder = String(remainder.prefix(availableSlots))
+            if !trimmedRemainder.isEmpty {
+                applyBulkInput(startingAt: index + 1, digits: trimmedRemainder)
+            }
+        }
+    }
+
+    private func processSingleDigitInput(at index: Int, digit: String) {
+        if digitFields[index] != digit {
+            digitFields[index] = digit
+        }
+
         let newCode = digitFields.joined()
         code = newCode
         onCodeChange(newCode)
-        
-        // Move to next empty field if digit was entered (only when adding, not removing)
-        if !newDigit.isEmpty {
-            if let nextIndex = findNextEmptyField(startingFrom: index) {
-                DispatchQueue.main.async {
+
+        if !digit.isEmpty,
+           let nextIndex = findNextEmptyField(startingFrom: index) {
+            DispatchQueue.main.async {
+                if focusedIndex != nextIndex {
                     focusedIndex = nextIndex
                 }
             }
         }
 
-        // Check if code is complete
         if newCode.count == codeLength {
             DispatchQueue.main.async {
                 onCodeComplete(newCode)
             }
         }
     }
+
     
     private func handleBackspace(at index: Int) {
         // If current field is empty, move to previous field and clear it
         if digitFields[index].isEmpty && index > 0 {
             digitFields[index - 1] = ""
             DispatchQueue.main.async {
-                focusedIndex = index - 1
+                let previousIndex = index - 1
+                if focusedIndex != previousIndex {
+                    focusedIndex = previousIndex
+                }
             }
         } else {
             // Clear current field
@@ -133,6 +158,41 @@ struct VerificationCodeInputField: View {
         onCodeChange(newCode)
     }
     
+    private func applyBulkInput(startingAt index: Int, digits: String) {
+        guard !digits.isEmpty, index < codeLength else { return }
+        
+        var updatedFields = digitFields
+        var currentIndex = index
+        
+        for digit in digits where currentIndex < codeLength {
+            updatedFields[currentIndex] = String(digit)
+            currentIndex += 1
+        }
+        
+        if digitFields != updatedFields {
+            digitFields = updatedFields
+        }
+        
+        let newCode = updatedFields.joined()
+        code = newCode
+        onCodeChange(newCode)
+        
+        if newCode.count == codeLength {
+            DispatchQueue.main.async {
+                onCodeComplete(newCode)
+            }
+        } else {
+            let clampedIndex = max(min(currentIndex - 1, codeLength - 1), 0)
+            if let nextIndex = findNextEmptyField(startingFrom: clampedIndex) {
+                DispatchQueue.main.async {
+                    if focusedIndex != nextIndex {
+                        focusedIndex = nextIndex
+                    }
+                }
+            }
+        }
+    }
+
     private func findNextEmptyField(startingFrom index: Int) -> Int? {
         // Look for the next empty field after the current index
         for i in (index + 1)..<codeLength {
@@ -154,13 +214,23 @@ private struct SingleDigitField: View {
     @Binding var digit: String
     let isError: Bool
     let isFocused: Bool
+    let maxDigits: Int
     let onDigitChanged: (String) -> Void
     let onBackspace: () -> Void
     let onFocusChanged: (Bool) -> Void
-    
-    @State private var borderWidth: CGFloat = 1
-    @State private var borderColor: Color = Color(.systemFill)
-    
+
+    private var borderWidth: CGFloat {
+        if isError { return 2 }
+        if isFocused || !digit.isEmpty { return 3 }
+        return 1
+    }
+
+    private var borderColor: Color {
+        if isError { return .red }
+        if isFocused || !digit.isEmpty { return .accentColor }
+        return Color(.systemFill)
+    }
+
     var body: some View {
         BackspaceAwareTextField(
             text: $digit,
@@ -175,6 +245,7 @@ private struct SingleDigitField: View {
             onFocusChanged: { isFocused in
                 onFocusChanged(isFocused)
             },
+            maxCharacters: maxDigits,
             configuration: { textField in
                 textField.font = .systemFont(ofSize: 24, weight: .medium)
                 textField.textAlignment = .center
@@ -197,33 +268,6 @@ private struct SingleDigitField: View {
                 )
         )
         .frame(maxWidth: .infinity)
-        .onChange(of: digit) { _, _ in
-            updateBorderAppearance()
-        }
-        .onChange(of: isFocused) { oldValue, newValue in
-            updateBorderAppearance()
-        }
-        .onChange(of: isError) { oldValue, newValue in
-            updateBorderAppearance()
-        }
-        .onAppear {
-            updateBorderAppearance()
-        }
-    }
-    
-    private func updateBorderAppearance() {
-        withAnimation(.easeInOut(duration: 0.15)) {
-            if isError {
-                borderWidth = 2
-                borderColor = .red
-            } else if isFocused || !digit.isEmpty {
-                borderWidth = 3
-                borderColor = .accentColor
-            } else {
-                borderWidth = 1
-                borderColor = Color(.systemFill)
-            }
-        }
     }
 }
 
@@ -232,6 +276,7 @@ private struct BackspaceAwareTextField: UIViewRepresentable {
     var isFirstResponder: Bool
     let onDeleteBackwardWhenEmpty: () -> Void
     let onFocusChanged: (Bool) -> Void
+    let maxCharacters: Int
     let configuration: (UITextField) -> Void
     let onTextChange: (String) -> Void
 
@@ -267,10 +312,16 @@ private struct BackspaceAwareTextField: UIViewRepresentable {
             }
         }
 
-        if isFirstResponder && !uiView.isFirstResponder {
-            uiView.becomeFirstResponder()
-        } else if !isFirstResponder && uiView.isFirstResponder {
-            uiView.resignFirstResponder()
+        if isFirstResponder {
+            if !context.coordinator.isFirstResponder {
+                context.coordinator.isFirstResponder = true
+                DispatchQueue.main.async { [weak uiView] in
+                    guard let uiView, !uiView.isFirstResponder else { return }
+                    uiView.becomeFirstResponder()
+                }
+            }
+        } else if context.coordinator.isFirstResponder {
+            context.coordinator.isFirstResponder = false
         }
     }
 
@@ -280,6 +331,7 @@ private struct BackspaceAwareTextField: UIViewRepresentable {
 
     final class Coordinator: NSObject, UITextFieldDelegate {
         var parent: BackspaceAwareTextField
+        var isFirstResponder = false
 
         init(parent: BackspaceAwareTextField) {
             self.parent = parent
@@ -292,10 +344,12 @@ private struct BackspaceAwareTextField: UIViewRepresentable {
         }
 
         func textFieldDidBeginEditing(_ textField: UITextField) {
+            isFirstResponder = true
             parent.onFocusChanged(true)
         }
 
         func textFieldDidEndEditing(_ textField: UITextField) {
+            isFirstResponder = false
             parent.onFocusChanged(false)
         }
 
@@ -308,13 +362,23 @@ private struct BackspaceAwareTextField: UIViewRepresentable {
                 return true
             }
 
-            guard string.allSatisfy({ $0.isNumber }) else {
+            let digitsOnly = string.filter { $0.isNumber }
+            guard !digitsOnly.isEmpty else {
                 return false
             }
 
             let currentText = textField.text ?? ""
             let nsCurrent = currentText as NSString
-            let updated = nsCurrent.replacingCharacters(in: range, with: string)
+
+            if digitsOnly.count > 1 || string.count > 1 {
+                let limit = max(parent.maxCharacters, 1)
+                let truncated = String(digitsOnly.prefix(limit))
+                let proposed = nsCurrent.replacingCharacters(in: range, with: truncated)
+                parent.onTextChange(String(proposed.prefix(limit)))
+                return false
+            }
+
+            let updated = nsCurrent.replacingCharacters(in: range, with: digitsOnly)
             return updated.count <= 1
         }
     }
