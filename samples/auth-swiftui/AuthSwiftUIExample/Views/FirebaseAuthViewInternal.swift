@@ -218,7 +218,7 @@ struct FirebaseAuthViewInternal: View {
             phoneNumber: $phoneNumber,
             selectedCountry: $selectedCountry,
             verificationCode: $verificationCode,
-            fullPhoneNumber: "\(selectedCountry.dialCode) \(phoneNumber)",
+            fullPhoneNumber: "\(selectedCountry.dialCode)\(phoneNumber)",
             resendTimer: resendTimer,
             onSendCodeClick: handleSendCode,
             onVerifyCodeClick: handleVerifyCode,

@@ -35,6 +35,7 @@ struct VerificationCodeInputField: View {
     
     @State private var digitFields: [String] = []
     @State private var focusedIndex: Int? = nil
+    @State private var pendingInternalCodeUpdates = 0
     
     var body: some View {
         VStack(spacing: 8) {
@@ -45,6 +46,8 @@ struct VerificationCodeInputField: View {
                         isError: isError,
                         isFocused: focusedIndex == index,
                         maxDigits: codeLength - index,
+                        position: index + 1,
+                        totalDigits: codeLength,
                         onDigitChanged: { newDigit in
                             handleDigitChanged(at: index, newDigit: newDigit)
                         },
@@ -75,21 +78,56 @@ struct VerificationCodeInputField: View {
         }
         .onAppear {
             // Initialize digit fields from the code binding
-            updateDigitFieldsFromCode()
+            updateDigitFieldsFromCode(shouldUpdateFocus: true, forceFocus: true)
+        }
+        .onChange(of: code) { _ in
+            if pendingInternalCodeUpdates > 0 {
+                pendingInternalCodeUpdates -= 1
+                return
+            }
+            updateDigitFieldsFromCode(shouldUpdateFocus: true)
         }
     }
     
-    private func updateDigitFieldsFromCode() {
-        let codeArray = Array(code)
-        for i in 0..<codeLength {
-            if i < codeArray.count {
-                digitFields[i] = String(codeArray[i])
-            } else {
-                digitFields[i] = ""
+    private func updateDigitFieldsFromCode(shouldUpdateFocus: Bool, forceFocus: Bool = false) {
+        let sanitized = code.filter { $0.isNumber }
+        let truncated = String(sanitized.prefix(codeLength))
+        var newFields = Array(repeating: "", count: codeLength)
+
+        for (offset, character) in truncated.enumerated() {
+            newFields[offset] = String(character)
+        }
+
+        let fieldsChanged = newFields != digitFields
+        if fieldsChanged {
+            digitFields = newFields
+        }
+
+        if code != truncated {
+            commitCodeChange(truncated)
+        }
+
+        if shouldUpdateFocus && (fieldsChanged || forceFocus) {
+            let newFocus = truncated.count < codeLength ? truncated.count : nil
+            DispatchQueue.main.async {
+                focusedIndex = newFocus
+            }
+        }
+
+        if fieldsChanged && truncated.count == codeLength {
+            DispatchQueue.main.async {
+                onCodeComplete(truncated)
             }
         }
     }
-    
+
+    private func commitCodeChange(_ newCode: String) {
+        if code != newCode {
+            pendingInternalCodeUpdates += 1
+            code = newCode
+        }
+    }
+
     private func handleDigitChanged(at index: Int, newDigit: String) {
         let sanitized = newDigit.filter { $0.isNumber }
 
@@ -117,7 +155,7 @@ struct VerificationCodeInputField: View {
         }
 
         let newCode = digitFields.joined()
-        code = newCode
+        commitCodeChange(newCode)
         onCodeChange(newCode)
 
         if !digit.isEmpty,
@@ -154,7 +192,7 @@ struct VerificationCodeInputField: View {
         
         // Update the main code string
         let newCode = digitFields.joined()
-        code = newCode
+        commitCodeChange(newCode)
         onCodeChange(newCode)
     }
     
@@ -174,7 +212,7 @@ struct VerificationCodeInputField: View {
         }
         
         let newCode = updatedFields.joined()
-        code = newCode
+        commitCodeChange(newCode)
         onCodeChange(newCode)
         
         if newCode.count == codeLength {
@@ -215,6 +253,8 @@ private struct SingleDigitField: View {
     let isError: Bool
     let isFocused: Bool
     let maxDigits: Int
+    let position: Int
+    let totalDigits: Int
     let onDigitChanged: (String) -> Void
     let onBackspace: () -> Void
     let onFocusChanged: (Bool) -> Void
@@ -268,6 +308,10 @@ private struct SingleDigitField: View {
                 )
         )
         .frame(maxWidth: .infinity)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("Digit \(position) of \(totalDigits)")
+        .accessibilityValue(digit.isEmpty ? "Empty" : digit)
+        .accessibilityHint("Enter verification code digit")
     }
 }
 
