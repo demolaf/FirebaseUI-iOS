@@ -29,7 +29,6 @@ struct EnterPhoneNumberView: View {
             ) {
                 CountrySelector(
                     selectedCountry: state.selectedCountry,
-                    onCountrySelected: state.onCountrySelected,
                     enabled: !state.isLoading
                 )
             }
@@ -67,17 +66,14 @@ struct EnterPhoneNumberView: View {
             isLoading: false,
             error: nil,
             phoneNumber: .constant(""),
-            selectedCountry: .default,
-            onCountrySelected: { _ in },
-            onSendCodeClick: {},
+            selectedCountry: .constant(.default),
             verificationCode: .constant(""),
-            onVerificationCodeChange: { _ in },
-            onVerifyCodeClick: {},
             fullPhoneNumber: "+1 ",
-            onResendCodeClick: {},
             resendTimer: 0,
-            onChangeNumberClick: {},
-            navigator: Navigator()
+            onSendCodeClick: {},
+            onVerifyCodeClick: {},
+            onResendCodeClick: {},
+            onChangeNumberClick: {}
         ))
         .safeAreaPadding()
     }

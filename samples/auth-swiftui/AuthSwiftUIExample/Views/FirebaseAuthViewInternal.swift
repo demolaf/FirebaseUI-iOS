@@ -57,24 +57,20 @@ struct EmailAuthContentState {
     var onGoToSignUp: () -> Void
     var onGoToSignIn: () -> Void
     var onGoToResetPassword: () -> Void
-    var navigator: Navigator
 }
 
 struct PhoneAuthContentState {
     var isLoading: Bool
     var error: String?
     var phoneNumber: Binding<String>
-    var selectedCountry: CountryData
-    var onCountrySelected: (CountryData) -> Void
-    var onSendCodeClick: () -> Void
+    var selectedCountry: Binding<CountryData>
     var verificationCode: Binding<String>
-    var onVerificationCodeChange: (String) -> Void
-    var onVerifyCodeClick: () -> Void
     var fullPhoneNumber: String
-    var onResendCodeClick: () -> Void
     var resendTimer: Int
+    var onSendCodeClick: () -> Void
+    var onVerifyCodeClick: () -> Void
+    var onResendCodeClick: () -> Void
     var onChangeNumberClick: () -> Void
-    var navigator: Navigator
 }
 
 @Observable
@@ -121,7 +117,7 @@ struct FirebaseAuthViewInternal: View {
     var body: some View {
         NavigationStack(path: $navigator.routes) {
             authMethodPicker
-            
+                .navigationTitle("Authentication")
                 .navigationBarTitleDisplayMode(.large)
                 .navigationDestination(for: Route.self) { route in
                     switch route {
@@ -152,6 +148,43 @@ struct FirebaseAuthViewInternal: View {
         .interactiveDismissDisabled(interactiveDismissDisabled)
     }
     
+    @ViewBuilder
+    var authMethodPicker: some View {
+        VStack(spacing: 36) {
+            Image(.firebaseAuthLogo)
+            GeometryReader { proxy in
+                AuthMethodPicker { selectedProvider in
+                    switch selectedProvider {
+                    case .email:
+                        navigator.push(.emailAuth(.signIn))
+                    case .phone:
+                        navigator.push(.phoneAuth(.enterPhoneNumber))
+                    case .google:
+                        break
+                    case .facebook:
+                        break
+                    }
+                }
+                .padding(.horizontal, proxy.size.width * 0.18)
+            }
+            tosAndPPFooter
+                .padding(.horizontal, 16)
+        }
+        .padding(.top, 24)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+    
+    @ViewBuilder
+    var tosAndPPFooter: some View {
+        AnnotatedString(
+            fullText: "By continuing, you accept our Terms of Service and Privacy Policy.",
+            links: [
+                ("Terms of Service", "https://example.com/terms"),
+                ("Privacy Policy", "https://example.com/privacy")
+            ]
+        )
+    }
+    
     // MARK: - State Creation
     
     private func createEmailAuthState() -> EmailAuthContentState {
@@ -167,18 +200,14 @@ struct FirebaseAuthViewInternal: View {
             onSignUpClick: handleEmailSignUp,
             onSendResetLinkClick: handleSendResetLink,
             onGoToSignUp: {
-                clearEmailForm()
-                navigator.push(.emailAuth(.signUp))
+                handleEmailAuthNavigation(route: .emailAuth(.signUp))
             },
             onGoToSignIn: {
-                clearEmailForm()
-                navigator.push(.emailAuth(.signIn))
+                handleEmailAuthNavigation(route: .emailAuth(.signIn))
             },
             onGoToResetPassword: {
-                clearEmailForm()
-                navigator.push(.emailAuth(.resetPassword))
-            },
-            navigator: navigator
+                handleEmailAuthNavigation(route: .emailAuth(.resetPassword))
+            }
         )
     }
     
@@ -187,34 +216,28 @@ struct FirebaseAuthViewInternal: View {
             isLoading: phoneIsLoading,
             error: phoneError,
             phoneNumber: $phoneNumber,
-            selectedCountry: selectedCountry,
-            onCountrySelected: { country in
-                selectedCountry = country
-            },
-            onSendCodeClick: handleSendCode,
+            selectedCountry: $selectedCountry,
             verificationCode: $verificationCode,
-            onVerificationCodeChange: { code in
-                verificationCode = code
-            },
-            onVerifyCodeClick: handleVerifyCode,
             fullPhoneNumber: "\(selectedCountry.dialCode) \(phoneNumber)",
-            onResendCodeClick: handleResendCode,
             resendTimer: resendTimer,
+            onSendCodeClick: handleSendCode,
+            onVerifyCodeClick: handleVerifyCode,
+            onResendCodeClick: handleResendCode,
             onChangeNumberClick: {
                 verificationCode = ""
                 navigator.pop()
-            },
-            navigator: navigator
+            }
         )
     }
     
     // MARK: - Email Auth Handlers
     
-    private func clearEmailForm() {
+    private func handleEmailAuthNavigation(route: Route) {
         email = ""
         password = ""
         confirmPassword = ""
         displayName = ""
+        navigator.push(route)
     }
     
     private func handleEmailSignIn() {
@@ -242,42 +265,6 @@ struct FirebaseAuthViewInternal: View {
     
     private func handleResendCode() {
         // TODO: Implement resend code logic
-    }
-    
-    @ViewBuilder
-    var authMethodPicker: some View {
-        VStack(spacing: 36) {
-            Image(.firebaseAuthLogo)
-            GeometryReader { proxy in
-                AuthMethodPicker { selectedProvider in
-                    switch selectedProvider {
-                    case .email:
-                        navigator.push(.emailAuth(.signIn))
-                    case .phone:
-                        navigator.push(.phoneAuth(.enterPhoneNumber))
-                    case .google:
-                        break
-                    case .facebook:
-                        break
-                    }
-                }
-                .padding(.horizontal, proxy.size.width * 0.18)
-            }
-            tosAndPPFooter
-        }
-        .padding(.top, 24)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-    
-    @ViewBuilder
-    var tosAndPPFooter: some View {
-        AnnotatedString(
-            fullText: "By continuing, you accept our Terms of Service and Privacy Policy.",
-            links: [
-                ("Terms of Service", "https://example.com/terms"),
-                ("Privacy Policy", "https://example.com/privacy")
-            ]
-        )
     }
 }
 

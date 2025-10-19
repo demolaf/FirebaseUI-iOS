@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct CountrySelector: View {
-    let selectedCountry: CountryData
-    let onCountrySelected: (CountryData) -> Void
+    @Binding var selectedCountry: CountryData
     var enabled: Bool = true
     var allowedCountries: Set<String>? = nil
 
@@ -43,7 +42,7 @@ struct CountrySelector: View {
         Menu {
             ForEach(filteredCountries, id: \.code) { country in
                 Button {
-                    onCountrySelected(country)
+                    selectedCountry = country
                 } label: {
                     Text("\(country.flag) \(country.name) (\(country.dialCode))")
                 }
@@ -66,7 +65,6 @@ struct CountrySelector: View {
 
 #Preview {
     CountrySelector(
-        selectedCountry: .default,
-        onCountrySelected: { _ in }
+        selectedCountry: .constant(.default)
     )
 }

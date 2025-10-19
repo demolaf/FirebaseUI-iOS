@@ -88,8 +88,7 @@ struct EmailSignInView: View {
             onSendResetLinkClick: {},
             onGoToSignUp: {},
             onGoToSignIn: {},
-            onGoToResetPassword: {},
-            navigator: Navigator()
+            onGoToResetPassword: {}
         ))
         .safeAreaPadding()
     }
