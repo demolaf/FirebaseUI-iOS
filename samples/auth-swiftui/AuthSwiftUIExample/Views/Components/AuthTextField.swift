@@ -25,7 +25,7 @@ struct AuthTextField<Leading: View>: View {
     var textAlignment: TextAlignment = .leading
     var keyboardType: UIKeyboardType = .default
     var contentType: UITextContentType? = nil
-    var sensitive: Bool = false
+    var isSecureTextField: Bool = false
     var validations: [FieldValidation] = []
     var formState: ((Bool) -> Void)? = nil
     var onSubmit: ((String) -> Void)? = nil
@@ -52,7 +52,7 @@ struct AuthTextField<Leading: View>: View {
         self.textAlignment = textAlignment
         self.keyboardType = keyboardType
         self.contentType = contentType
-        self.sensitive = sensitive
+        self.isSecureTextField = sensitive
         self.validations = validations
         self.formState = formState
         self.onSubmit = onSubmit
@@ -70,7 +70,7 @@ struct AuthTextField<Leading: View>: View {
             HStack(spacing: 8) {
                 leading()
                 Group {
-                    if sensitive {
+                    if isSecureTextField {
                         ZStack(alignment: .trailing) {
                             SecureField(localizedTitle, text: $text, prompt: Text(prompt))
                                 .opacity(obscured ? 1 : 0)
@@ -137,7 +137,7 @@ struct AuthTextField<Leading: View>: View {
                 VStack(alignment: .leading, spacing: 4) {
                     ForEach(validations) { validation in
                         HStack {
-                            Image(systemName: sensitive ? "lock.open" : "x.square")
+                            Image(systemName: isSecureTextField ? "lock.open" : "x.square")
                                 .foregroundStyle(validation.valid ? .gray : .red)
                             Text(validation.message)
                                 .strikethrough(validation.valid, color: .gray)

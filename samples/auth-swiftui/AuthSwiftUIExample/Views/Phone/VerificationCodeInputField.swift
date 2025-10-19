@@ -58,10 +58,14 @@ struct VerificationCodeInputField: View {
                             DispatchQueue.main.async {
                                 if isFocused {
                                     if focusedIndex != index {
-                                        focusedIndex = index
+                                        withAnimation(.easeInOut(duration: 0.2)) {
+                                            focusedIndex = index
+                                        }
                                     }
                                 } else if focusedIndex == index {
-                                    focusedIndex = nil
+                                    withAnimation(.easeInOut(duration: 0.2)) {
+                                        focusedIndex = nil
+                                    }
                                 }
                             }
                         }
@@ -80,7 +84,7 @@ struct VerificationCodeInputField: View {
             // Initialize digit fields from the code binding
             updateDigitFieldsFromCode(shouldUpdateFocus: true, forceFocus: true)
         }
-        .onChange(of: code) { _ in
+        .onChange(of: code) { _, _ in
             if pendingInternalCodeUpdates > 0 {
                 pendingInternalCodeUpdates -= 1
                 return
@@ -110,7 +114,9 @@ struct VerificationCodeInputField: View {
         if shouldUpdateFocus && (fieldsChanged || forceFocus) {
             let newFocus = truncated.count < codeLength ? truncated.count : nil
             DispatchQueue.main.async {
-                focusedIndex = newFocus
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    focusedIndex = newFocus
+                }
             }
         }
 
@@ -162,7 +168,9 @@ struct VerificationCodeInputField: View {
            let nextIndex = findNextEmptyField(startingFrom: index) {
             DispatchQueue.main.async {
                 if focusedIndex != nextIndex {
-                    focusedIndex = nextIndex
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        focusedIndex = nextIndex
+                    }
                 }
             }
         }
@@ -182,7 +190,9 @@ struct VerificationCodeInputField: View {
             DispatchQueue.main.async {
                 let previousIndex = index - 1
                 if focusedIndex != previousIndex {
-                    focusedIndex = previousIndex
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        focusedIndex = previousIndex
+                    }
                 }
             }
         } else {
@@ -224,7 +234,9 @@ struct VerificationCodeInputField: View {
             if let nextIndex = findNextEmptyField(startingFrom: clampedIndex) {
                 DispatchQueue.main.async {
                     if focusedIndex != nextIndex {
-                        focusedIndex = nextIndex
+                        withAnimation(.easeInOut(duration: 0.2)) {
+                            focusedIndex = nextIndex
+                        }
                     }
                 }
             }
@@ -312,6 +324,8 @@ private struct SingleDigitField: View {
         .accessibilityLabel("Digit \(position) of \(totalDigits)")
         .accessibilityValue(digit.isEmpty ? "Empty" : digit)
         .accessibilityHint("Enter verification code digit")
+        .animation(.easeInOut(duration: 0.2), value: isFocused)
+        .animation(.easeInOut(duration: 0.2), value: digit)
     }
 }
 
@@ -389,12 +403,25 @@ private struct BackspaceAwareTextField: UIViewRepresentable {
 
         func textFieldDidBeginEditing(_ textField: UITextField) {
             isFirstResponder = true
+            animateFocusChange(for: textField, focused: true)
             parent.onFocusChanged(true)
         }
 
         func textFieldDidEndEditing(_ textField: UITextField) {
             isFirstResponder = false
+            animateFocusChange(for: textField, focused: false)
             parent.onFocusChanged(false)
+        }
+
+        private func animateFocusChange(for textField: UITextField, focused: Bool) {
+            let targetTransform: CGAffineTransform = focused ? CGAffineTransform(scaleX: 1.05, y: 1.05) : .identity
+            UIView.animate(
+                withDuration: 0.2,
+                delay: 0,
+                options: [.curveEaseInOut, .allowUserInteraction]
+            ) {
+                textField.transform = targetTransform
+            }
         }
 
         func textField(

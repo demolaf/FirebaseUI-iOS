@@ -10,6 +10,33 @@ import SwiftUI
 enum Route: Hashable {
     case emailAuth(EmailAuthMode)
     case phoneAuth(PhoneAuthStep)
+    
+    @ViewBuilder
+    func destination(emailAuthState: EmailAuthContentState, phoneAuthState: PhoneAuthContentState) -> some View {
+        switch self {
+        case .emailAuth(let mode):
+            switch mode {
+            case .signIn:
+                EmailSignInView(state: emailAuthState)
+                    .safeAreaPadding()
+            case .signUp:
+                EmailSignUpView(state: emailAuthState)
+                    .safeAreaPadding()
+            case .resetPassword:
+                EmailResetPasswordView(state: emailAuthState)
+                    .safeAreaPadding()
+            }
+        case .phoneAuth(let step):
+            switch step {
+            case .enterPhoneNumber:
+                EnterPhoneNumberView(state: phoneAuthState)
+                    .safeAreaPadding()
+            case .enterVerificationCode:
+                EnterVerificationCodeView(state: phoneAuthState)
+                    .safeAreaPadding()
+            }
+        }
+    }
 }
 
 enum EmailAuthMode {
@@ -120,29 +147,7 @@ struct FirebaseAuthViewInternal: View {
                 .navigationTitle("Authentication")
                 .navigationBarTitleDisplayMode(.large)
                 .navigationDestination(for: Route.self) { route in
-                    switch route {
-                    case .emailAuth(let mode):
-                        switch mode {
-                        case .signIn:
-                            EmailSignInView(state: createEmailAuthState())
-                                .safeAreaPadding()
-                        case .signUp:
-                            EmailSignUpView(state: createEmailAuthState())
-                                .safeAreaPadding()
-                        case .resetPassword:
-                            EmailResetPasswordView(state: createEmailAuthState())
-                                .safeAreaPadding()
-                        }
-                    case .phoneAuth(let step):
-                        switch step {
-                        case .enterPhoneNumber:
-                            EnterPhoneNumberView(state: createPhoneAuthState())
-                                .safeAreaPadding()
-                        case .enterVerificationCode:
-                            EnterVerificationCodeView(state: createPhoneAuthState())
-                                .safeAreaPadding()
-                        }
-                    }
+                    route.destination(emailAuthState: createEmailAuthState(), phoneAuthState: createPhoneAuthState())
                 }
         }
         .interactiveDismissDisabled(interactiveDismissDisabled)
@@ -150,23 +155,19 @@ struct FirebaseAuthViewInternal: View {
     
     @ViewBuilder
     var authMethodPicker: some View {
-        VStack(spacing: 36) {
+        VStack {
             Image(.firebaseAuthLogo)
-            GeometryReader { proxy in
-                AuthMethodPicker { selectedProvider in
-                    switch selectedProvider {
-                    case .email:
-                        navigator.push(.emailAuth(.signIn))
-                    case .phone:
-                        navigator.push(.phoneAuth(.enterPhoneNumber))
-                    case .google:
-                        break
-                    case .facebook:
-                        break
-                    }
+            AuthMethodPickerListView { selectedProvider in
+                switch selectedProvider {
+                case .email:
+                    navigator.push(.emailAuth(.signIn))
+                case .phone:
+                    navigator.push(.phoneAuth(.enterPhoneNumber))
+                default:
+                    break
                 }
-                .padding(.horizontal, proxy.size.width * 0.18)
             }
+            .padding(.vertical, 16)
             tosAndPPFooter
                 .padding(.horizontal, 16)
         }
